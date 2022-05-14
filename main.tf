@@ -12,23 +12,23 @@ terraform {
 
 # AWS provider configuration
 provider "aws" {
-  region  = "us-east-1"
-  profile = "terraform"
+  region  = var.aws_region
+  profile = var.aws_profile
 
   default_tags {
     tags = {
+      ManagedBy   = "Terraform: ${var.aws_profile}"
+      Owner       = "Maycon"
       Environment = "development"
     }
   }
 }
 
-# specific resource from AWS, in thsi case is the AWS S3 Bucket
-resource "aws_s3_bucket" "first-bucket-jkh35gkj235hjk2332k" {
-  bucket = "my-tf-test-bucket-jkh35gkj235hjk2332k"
+resource "aws_instance" "first-ec2" {
+  ami           = "ami-09d56f8956ab235b3"
+  instance_type = "t2.micro"
 
   tags = {
-    Name      = "My first Bucket"
-    ManagedBy = "Terraform"
-    Owner     = "Maycon"
+    Name = "My first EC2 Instance"
   }
 }
