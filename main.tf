@@ -16,19 +16,25 @@ provider "aws" {
   profile = var.aws_profile
 
   default_tags {
-    tags = {
-      ManagedBy   = "Terraform: ${var.aws_profile}"
-      Owner       = "Maycon"
-      Environment = "development"
-    }
+    tags = local.common_tags
   }
 }
 
-resource "aws_instance" "first-ec2" {
-  ami           = "ami-09d56f8956ab235b3"
-  instance_type = "t2.micro"
+resource "aws_s3_bucket" "diff-bucket-12341" {
+  bucket = "diff-12341"
 
   tags = {
-    Name = "My first EC2 Instance"
+    Name = "A different bucket"
+  }
+}
+
+resource "aws_s3_object" "some-file" {
+  bucket = aws_s3_bucket.diff-bucket-12341.bucket
+  key    = "lists/${local.file_name}"
+  source = local.file_name
+  etag   = filemd5(local.file_name)
+
+  tags = {
+    Name = "my first s3 object"
   }
 }

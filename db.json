@@ -1,0 +1,12 @@
+{
+    "movies": [
+        {
+            "id": 0,
+            "name": "Multiverse of Madness"
+        },
+        {
+            "id": 1,
+            "name": "WandaVision"
+        }
+    ]
+}
