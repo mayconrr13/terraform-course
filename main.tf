@@ -28,13 +28,10 @@ resource "aws_s3_bucket" "diff-bucket-12341" {
   }
 }
 
-resource "aws_s3_object" "some-file" {
-  bucket = aws_s3_bucket.diff-bucket-12341.bucket
-  key    = "lists/${local.file_name}"
-  source = local.file_name
-  etag   = filemd5(local.file_name)
+resource "aws_s3_bucket" "teste-20220324" {
+  bucket = "teste-20220324"
 
   tags = {
-    Name = "my first s3 object"
+    Description = "An old bucket manually created and added to state with terraform import"
   }
 }
